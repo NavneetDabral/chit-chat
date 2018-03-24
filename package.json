@@ -1,0 +1,23 @@
+{
+  "name": "chit-chat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NavneetDabral/chit-chat.git"
+  },
+  "author": "Navneet Dabral",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NavneetDabral/chit-chat/issues"
+  },
+  "homepage": "https://github.com/NavneetDabral/chit-chat#readme",
+  "dependencies": {
+    "angular": "^1.6.9",
+    "angular-router": "0.0.2"
+  }
+}
