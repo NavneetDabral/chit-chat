@@ -18,6 +18,8 @@
   "homepage": "https://github.com/NavneetDabral/chit-chat#readme",
   "dependencies": {
     "angular": "^1.6.9",
-    "angular-router": "0.0.2"
+    "angular-cookies": "^1.6.9",
+    "angular-router": "0.0.2",
+    "angular-ui-router": "^1.0.3"
   }
 }
