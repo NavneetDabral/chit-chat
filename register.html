@@ -1,0 +1,31 @@
+<div class="col-lg-4 offset-3 regisbox">
+    <div ng-if="data.err===1">
+        <div class="alert alert-success" ng-bind="data.ms"></div> 
+    </div>
+<form ng-submit="register_me()" method="POST">
+  
+ <div class="form-group">
+   <label for="fname">First Name</label>
+     <input  class="form-control"  placeholder="Enter First Name" ng-model="myregis.fname" required>
+ </div>
+    
+ <div class="form-group">
+    <label for="lname">Last Name</label>
+      <input  class="form-control"  placeholder="Enter Last Name" ng-model="myregis.lname" required>
+ </div>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" ng-model="myregis.email" required>
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+  <div class="form-group">
+    <label>Password</label>
+    <input type="password" class="form-control"  placeholder="Password" ng-model="myregis.pass" required>
+  </div>
+ <div class="form-group">
+    <label>Confirm Password</label>
+    <input type="password" class="form-control" placeholder=" Confirm Password" ng-model="myregis.cpass" required>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+    </div>

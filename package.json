@@ -20,6 +20,10 @@
     "angular": "^1.6.9",
     "angular-cookies": "^1.6.9",
     "angular-router": "0.0.2",
-    "angular-ui-router": "^1.0.3"
+    "angular-ui-router": "^1.0.3",
+    "bootstrap": "^4.0.0",
+    "express": "^4.15.2",
+    "jquery": "^1.9.1",
+    "popper.js": "^1.12.9"
   }
 }

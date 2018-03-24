@@ -6,6 +6,11 @@ app.config(['$stateProvider', '$urlRouterProvider',function($stateProvider, $url
             templateUrl: 'login.html',
                     controller:'loginCtrl'
                      })
+                .state('register', {
+            url: '/register',
+            templateUrl: 'register.html',
+                    controller:'regisCtrl'
+                     })
             /*
             .state('restaurant.categories', {
               url: "restaurant/categories?restaurant",
@@ -23,8 +28,7 @@ app.config(['$stateProvider', '$urlRouterProvider',function($stateProvider, $url
         */
             }]);
 /*
-//login controller
-    app.controller('loginCtrl',function($scope,$http,$cookies,$location)
+  app.controller('loginCtrl',function($scope,$http,$cookies,$location)
 {
     $scope.login=function()
     {
@@ -43,21 +47,18 @@ app.config(['$stateProvider', '$urlRouterProvider',function($stateProvider, $url
      })
     } 
 })
+*/
     //registration controller
+  
 app.controller('regisCtrl',function($scope,$http)
 { 
-  $scope.regis=function()
+  $scope.register_me=function()
   {
-      var fn=$scope.myData.fn;
-      var ln=$scope.myData.ln;
-      var email=$scope.myData.email;
-      var pass=$scope.myData.pass;
-      var cpass=$scope.myData.cpass;
-      console.log($scope.myData);
-      if(pass==cpass)
+     
+      console.log($scope.myregis);
+      if($scope.myregis.pass==$scope.myregis.cpass)
       {
-     data={fnn:fn,lnn:ln,emaill:email,passs:pass};
- $http.post("http://127.0.0.1:8086/regis",data).then(function(res)
+ $http.post("http://127.0.0.1:8086/regis",$scope.myregis).then(function(res)
   {
       //console.log(res.data);
       $scope.data=res.data;
@@ -67,15 +68,8 @@ app.controller('regisCtrl',function($scope,$http)
       }
       else
       {
-          $scope.data={err: 1, msg: "Pass & cpass is not match"};
+          $scope.data={err: 1, ms: "Password and confirm password not matched"};
           console.log("hello");
       }
   }
 })
-app.filter('startFrom', function() {
-    return function(input, start) {
-        start = +start; //parse to int
-        return input.slice(start);
-    }
-})
-*/
