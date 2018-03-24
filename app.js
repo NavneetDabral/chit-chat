@@ -58,7 +58,7 @@ app.controller('regisCtrl',function($scope,$http)
       console.log($scope.myregis);
       if($scope.myregis.pass==$scope.myregis.cpass)
       {
- $http.post("http://127.0.0.1:8086/regis",$scope.myregis).then(function(res)
+ $http.post("http://127.0.0.1:8086/register",$scope.myregis).then(function(res)
   {
       //console.log(res.data);
       $scope.data=res.data;

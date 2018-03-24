@@ -21,9 +21,13 @@
     "angular-cookies": "^1.6.9",
     "angular-router": "0.0.2",
     "angular-ui-router": "^1.0.3",
+    "body-parser": "^1.18.2",
     "bootstrap": "^4.0.0",
+    "cors": "^2.8.4",
     "express": "^4.15.2",
     "jquery": "^1.9.1",
-    "popper.js": "^1.12.9"
+    "mongoose": "^5.0.11",
+    "popper.js": "^1.12.9",
+    "sha-256": "^1.0.3"
   }
 }
