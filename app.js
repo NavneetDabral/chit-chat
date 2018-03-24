@@ -11,6 +11,11 @@ app.config(['$stateProvider', '$urlRouterProvider',function($stateProvider, $url
             templateUrl: 'register.html',
                     controller:'regisCtrl'
                      })
+                .state('profile', {
+            url: '/profile',
+            templateUrl: 'profile.html',
+                    //controller:'profctrl'
+                     })
             /*
             .state('restaurant.categories', {
               url: "restaurant/categories?restaurant",
@@ -27,7 +32,9 @@ app.config(['$stateProvider', '$urlRouterProvider',function($stateProvider, $url
           })
         */
             }]);
-/*
+
+//login controller
+
   app.controller('loginCtrl',function($scope,$http,$cookies,$location)
 {
     $scope.login=function()
@@ -37,20 +44,22 @@ app.config(['$stateProvider', '$urlRouterProvider',function($stateProvider, $url
         if(res.data.err==0)
         {
          $cookies.put('email',res.data.msg);
-          $location.url('/read');
+          $location.url('/profile');
             }
         if(res.data.err==1)
         {
              console.log("hello2");
-          $scope.mesg=res.data.msg;
+          $scope.msg=res.data.msg;
         }
      })
     } 
 })
-*/
+
+  
+  
     //registration controller
   
-app.controller('regisCtrl',function($scope,$http)
+app.controller('regisCtrl',function($scope,$http,$location)
 { 
   $scope.register_me=function()
   {
@@ -63,13 +72,16 @@ app.controller('regisCtrl',function($scope,$http)
       //console.log(res.data);
       $scope.data=res.data;
       $scope.myData={};
-      $scope.ms="Registered successfully"
+      $scope.msg="Registered successfully",
+     $cookies.put('email',res.data.msg);
+      $location.url('/profile');
   })
       }
       else
       {
-          $scope.data={err: 1, ms: "Password and confirm password not matched"};
+          $scope.data={err: 1, msg: "Password and confirm password not matched"};
           console.log("hello");
+          $scope.myData={};
       }
   }
 })

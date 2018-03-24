@@ -11,22 +11,63 @@ var connection = mongoose.connect('mongodb://localhost/chit-chat');
 //registration API
 app.post("/register",function(req,res)
 {
-    var data={First_Name:req.body.fname,Last_Name:req.body.lname,Email:req.body.email,Password:req.body.pass};
-    var register=new regiSchema(data);
-    register.save(function(err,data)
-    {
+    var mydata={First_Name:req.body.fname,Last_Name:req.body.lname,Email:req.body.email,Password:req.body.pass};
+    var register=new regiSchema(mydata);
+    
+regiSchema.find({Email:mydata.Email},function(err1,data1)
+   {
+       
+       if (data1.length === 0)
+        {
+          
+             register.save(function(err,data){
         if(err)
         {
-            res.json({err:1,msg:'Registration Error'})
+            res.json({err:1,msg:'Registration Error'});
         }
-        //here problem comes we need to send that status it is important and if we send 2 responses then app will crash so i am going to
+                 else
+                 {
+                     //here problem comes we need to send that status it is important and if we send 2 responses then app will crash so i am going to
         //print that successfull message in app.js
         //res.json({err:0,msg:'Registered Succusfully'})
-        res.sendStatus(200);
+        res.json({msg:myData.email});
         console.log("Success");
-    })
-})
-app.listen(8086,function()
+                     
+                 }
+        
+    });
+        }
+        else
+            {
+             res.json({err:1,msg:'Email already registered'});   
+            }
+    });
+});
+
+//login Api
+app.post("/login",function(req,res)
 {
-    console.log("Server running on 8086")
+   em=req.body.email;
+   pass=req.body.pass;
+  console.log(req.body); regiSchema.find({Email:em,Password:pass},function(err,data)
+   {
+       if(err)
+       {
+          console.log("error");
+           return res.json({err:1,msg:'email or pass is not correct'});
+       }
+       if (data.length === 0)
+        {
+            console.log("User not found");
+            return res.json({ err: 1, msg: 'email or pass is not correct' });
+        }
+         console.log("hhh");
+   return res.json({err:0,msg:em,rol:data[0].role});
+   
+   })
+})
+
+    app.listen(8086,function()
+{
+    console.log("Server running on 8086");
 })
