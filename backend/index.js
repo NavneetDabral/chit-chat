@@ -1,13 +1,57 @@
 var express=require('express');
+var app=express();
 var cors=require('cors');
 var mongoose=require('mongoose');
 var bodyParser=require('body-Parser');
 var sha256=require('sha-256');
 var regiSchema=require('./schemas/regis');
-var app=express();
 app.use(cors());
 app.use(bodyParser.json());
 var connection = mongoose.connect('mongodb://localhost/chit-chat');
+var server=app.listen(8086,'127.0.0.1',function()
+{
+    console.log("Server running on 8086");
+})
+var io = require('socket.io')(server);
+//Sockets
+var myusers=0;
+var userso=[];
+io.on('connection', function(socket) {
+    var me=false;
+    myusers++;
+   console.log('A user connected');
+
+socket.on('addme',function(data){
+              if(me==false)
+    {       
+         userso.push({
+		      		id : socket.id,
+		      		userName : data.username
+		      	});
+        me=true;
+          console.log(userso);
+       
+    }
+              })
+socket.emit('totalonline', { 
+         total: myusers,
+         user:userso
+        });
+   //Whenever someone disconnects this piece of code executed 
+   
+    socket.on('disconnect', function () {
+       myusers--;
+       for(let i=0; i < userso.length; i++){
+		        	
+		        	if(userso[i].id === socket.id){
+		          		userso.splice(i-1,1); 
+		        	}
+		      	}
+        
+      console.log('A user disconnected');
+   });
+});
+
 //registration API
 app.post("/register",function(req,res)
 {
@@ -67,7 +111,20 @@ app.post("/login",function(req,res)
    })
 })
 
-    app.listen(8086,function()
+//get users
+app.get('/getuser',function(req,res)
 {
-    console.log("Server running on 8086");
+    regiSchema.find({},function(err,data)
+    {
+        if(err)
+        {
+             return res.json({error:1,data:"Error"})
+        }
+        if(data.length===0)
+        {
+             return res.json({error:1,data:"No Data Found"})
+        }
+        return res.json({error:0,data:data})
+    })
 })
+   

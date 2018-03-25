@@ -14,24 +14,89 @@ app.config(['$stateProvider', '$urlRouterProvider',function($stateProvider, $url
                 .state('profile', {
             url: '/profile',
             templateUrl: 'profile.html',
-                    //controller:'profctrl'
+            controller:'profctrl'
                      })
-            /*
-            .state('restaurant.categories', {
-              url: "restaurant/categories?restaurant",
-              templateUrl: "categories.html",
-              controller:function($scope,$stateParams,$http)
-           {
-            $http.get("http://127.0.0.1:8086/category/"+$stateParams.restaurant).then(function(res)
-            {
-                $scope.cat=res.data.data;
-                $scope.value=$scope.cat[0].restname;
-                console.log(res.data)
-            })
-           }
-          })
-        */
             }]);
+//profile controller
+app.controller('profctrl',function($scope,$http,$cookies,$location)
+{
+     
+    $scope.logout=function()
+    { 
+        console.log("logout");
+        $cookies.remove("email");
+        $location.url('/login');
+    
+                      }
+    var session=$cookies.get('email');
+  if(session==null)
+     {
+       console.log("you are not logged in");
+     }
+               else{
+               
+ var socket = io.connect('http://localhost:8086/');
+ socket.on('connect', function(data){
+socket.emit('join', 'Hello World from client');
+ });
+        
+     socket.emit('addme', { 
+         username:session
+     }); 
+                   
+    socket.on('totalonline',function(data){
+            $scope.total=data.total;
+            console.log(data.user);
+            console.log(data.total);
+            $scope.userlist=data.user;
+      
+        })
+    
+    socket.emit('chatting_mate',);
+
+ $('form').submit(function(e){
+     e.preventDefault();
+     var message = $('#chat_input').val();
+     socket.emit('messages', message);
+
+ })
+               }
+                  
+     });  
+    
+/*    app.controller('chatctrl',function($scope,$http,$cookies,$stateParams)
+{
+        console.log($stateParams.f_name);
+        console.log($stateParams.l_name);
+        var value = $cookies.get("email");
+        console.log(value);
+var socket = io.connect('http://localhost:8086/');
+ socket.on('connect', function(data) {
+socket.emit('join'+'$stateParams.f_name'+'$stateParams.l_name'+'value', 'Hello World from client');
+ });
+        var username=$stateParams.f_name+$stateParams.l_name;
+socket.emit('add user', username);
+ socket.on('broad', function(data) {
+         $('#future').append(data+ "<br/>");
+   });
+
+ $('form').submit(function(e){
+     e.preventDefault();
+     var message = $('#chat_input').val();
+     socket.emit('messages', message);
+     
+ }); 
+     
+
+
+
+
+
+
+})
+*/
+
+
 
 //login controller
 
@@ -43,6 +108,8 @@ app.config(['$stateProvider', '$urlRouterProvider',function($stateProvider, $url
      {
         if(res.data.err==0)
         {
+        console.log(res.data.msg);
+            
          $cookies.put('email',res.data.msg);
           $location.url('/profile');
             }
@@ -59,7 +126,7 @@ app.config(['$stateProvider', '$urlRouterProvider',function($stateProvider, $url
   
     //registration controller
   
-app.controller('regisCtrl',function($scope,$http,$location)
+app.controller('regisCtrl',function($scope,$http,$location,$cookies)
 { 
   $scope.register_me=function()
   {
@@ -71,7 +138,7 @@ app.controller('regisCtrl',function($scope,$http,$location)
   {
       //console.log(res.data);
       $scope.data=res.data;
-      $scope.myData={};
+      $scope.myregis={};
       $scope.msg="Registered successfully",
      $cookies.put('email',res.data.msg);
       $location.url('/profile');
@@ -81,7 +148,7 @@ app.controller('regisCtrl',function($scope,$http,$location)
       {
           $scope.data={err: 1, msg: "Password and confirm password not matched"};
           console.log("hello");
-          $scope.myData={};
+          $scope.myregis={};
       }
   }
 })
