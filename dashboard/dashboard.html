@@ -1,0 +1,69 @@
+
+ <nav class="navbar navbar-expand-lg">
+      <ul class="navbar-nav">
+     <span class="navbar-brand mb-0 h1">MeetYou</span>
+     <li class="nav-item">
+         <a class="nav-link" ui-sref="profile">Home</a>
+      </li>      
+      <li class="nav-item">
+        <a class="nav-link" ui-sref=".groups">Groups </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" ui-sref=".Friends">Friends</a>
+      </li>
+      <li class="nav-item">
+         <a class="nav-link" ui-sref=".Notify">Notification</a>
+      </li>
+     <li class="nav-item">
+         <a class="nav-link" ui-sref=".timeline">Timeline</a>
+      </li>
+        </ul>
+      
+      <ul class="navbar-nav ml-auto">
+       <li class="nav-item">
+        <button class="btn btn-danger my-2 my-sm-0" ng-click="logout()">logout</a>
+      </li>
+      </ul>     
+  </nav>
+<ui-view>
+    <div class="container-fluid main">
+    <div class="row">
+  <div class="col-9 scroller">
+      <div class="row">
+          <div class="col-3">
+    <img  ng-src="../backend/uploads/{{ppath}}"
+alt="Generic placeholder thumbnail" class="rounded-circle"
+         style="height:150px; width:150px;">
+    
+      </div>
+    <div class="col-6">
+    <form ng-submit="post()">
+    <label for="exampleFormControlTextarea1">Your Thoughts</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" ng-model="mypost.post"></textarea>
+        
+     <button class="btn btn-info my-2 my-sm-0" type="submit">Post</button>
+      </form>
+      </div> 
+ 
+      </div>
+      
+      
+         </div>
+  <div class="col-3">
+ <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="People you may know" aria-label="Search Your Friend"
+           ng-model="search.First_Name">
+         <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+     
+  </form>
+      <div ng-repeat="user in users|filter :search">
+          <hr>
+        <button type="button" class="btn btn-light">{{user.First_Name}} {{user.Last_Name}} <i class="fa fa-send" aria-hidden="true"></i></button>
+          
+      </div>
+        
+        
+        </div>
+</div>
+ </div>
+</ui-view>

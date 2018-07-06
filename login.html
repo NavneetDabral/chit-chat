@@ -1,11 +1,16 @@
-<div class="col-lg-4 offset-3 regisbox">
+
+    <div class="col-lg-4 offset-3">
+    <div ng-if="value==1">
+        <div class="alert alert-success" ng-bind="msg"></div> 
+    </div>
+
     <div ng-if="err==0">
         <div class="alert alert-success" ng-bind="data.msg"></div> 
     </div>
     <div ng-if="err==1">
         <div class="alert alert-success" ng-bind="data.msg"></div> 
     </div>
-<form ng-submit="login()">
+<form ng-submit="login()" class="log">
 
   <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
@@ -15,9 +20,10 @@
     <label>Password</label>
     <input type="password" class="form-control"  placeholder="Password" ng-model="myLogin.pass" required>
   </div>
- <button type="submit" class="btn btn-primary">Submit</button>
+ <button type="submit" class="btn btn-primary">login</button>
 </form>
     </div>
+
 
 
  

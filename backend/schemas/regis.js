@@ -5,6 +5,7 @@ var regiSchema = new Schema({
     Last_Name:String,
     Email:String,
     Password:String,
+    image:String,
     time: {
         type: Date,
         default: Date.now
